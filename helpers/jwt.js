@@ -37,11 +37,31 @@ const generarJWT = ( uid ) => {
         });
  });
 
- 
+}
+
+//funcion para validar token, pero cuando el usaurio ya lo posee el token y el servidor verifique
+const comprobarJWT = ( token = '') => {
+
+     //ahora validar si el token existe
+     try {
+        //aqui biene el token y aqui validaremos 
+        const { uid } = jwt.verify( token, process.env.JWT_KEY );
+      
+        //regresamos esto si el usario esta iniciado
+        //true diciendo que se conecto
+        return [true, uid];
+
+
+
+        next();
+    } catch (error) {
+        return [false, null]
+    }
 
 }
 
 
 module.exports = {
-    generarJWT
+    generarJWT,
+    comprobarJWT
 }
